@@ -1,0 +1,318 @@
+
+
+----------==========----------==========----------==========----------
+
+
+"Eat Your Own Catfood."
+
+
+----------==========----------==========----------==========----------
+
+
+Change Log
+
+
+2020/04/30
+
+
+BUGFIX
+
+
+	neutral/bmp.c
+		n_bmp_flush()
+			OLD : access violation
+			NEW : fixed
+
+	win32/gdi/*.c
+		source code
+			OLD : multi-thread unsafe
+			NEW : fixed
+	win32/ole/IPicture.c
+		n_IPicture_load_shrink()
+			OLD : multi-thread unsafe
+			NEW : fixed
+	win32/win/*.c
+		source code
+			OLD : multi-thread unsafe
+			NEW : fixed
+	win32/win/txtbox/17_draw.c
+		n_win_txtbox_draw_partial() : when called from combobox
+			OLD : crash
+			NEW : fixed
+			[x] : BUGFIX @ 2020/04/10
+	win32/win/txtbox/22_proc_mouse.c : wheeling
+			OLD : reset to zero in some cases
+			NEW : fixed
+
+	Nekomimi Nina
+		horizontal lifts
+			OLD : once patched but not fixed yet
+			NEW : patched again
+	OrangeCat
+		source code
+			OLD : memory leak
+			NEW : fixed
+		source code
+			OLD : multi-thread unsafe
+			NEW : fixed
+	Pen Trainer
+		Pen
+			OLD : not working
+			NEW : fixed
+			[x] : NEW_FEATURE @ 2020/04/10
+
+
+NEW_FEATURE
+
+
+	neutral/memory.c
+		debug
+			NEW : multi-thread available
+
+	win32/win/mutex.c
+		released
+			NEW : mutex for the neutral layer
+			[!] : independent from the win32 layer
+			[?] : for neutral/memory.c
+
+	OrangeCat
+		multithreaded preloader : default
+			OLD : off
+			NEW : on
+			[!] : turn off with INI file when troubled
+		multithreaded synchronizer
+			NEW : faster than older
+			[!] : INI setting is shared with preloader
+		Info View : icon : image files
+			OLD : associated icon
+			NEW : image loader
+		Items : clickable map
+			NEW : not used
+			[!] : faster and lighter than older
+			[?] : calculation logic is available
+
+
+----------==========----------==========----------==========----------
+
+
+Change Log
+
+
+2020/04/20
+
+
+BUGFIX
+
+
+	neutral/bmp.c
+		multi-thread
+			OLD : possibility of access violation
+			NEW : fixed
+		n_bmp_*copy(), _rasterizer()
+			OLD : possibility of access violation
+			NEW : fixed
+
+	win32/win/icon.c
+		n_win_icon_bmp_resize() : regression
+			OLD : not beautiful in some icon size
+			NEW : use older code
+		n_win_icon_init_internal() : regression : when resized
+			OLD : possibility of access violation
+			NEW : fixed
+		High-DPI : 200% or more : UI auto-scaling
+			OLD : broken
+			NEW : fixed
+			[x] : ??? : maybe March 2020
+		n_win_icon_name_resolve() : when ""%1""
+			OLD : not supproted
+			NEW :     supproted
+	win32/win/set.c
+		n_win_set_patch() : High-DPI : patch : some DPI
+			OLD : disabled
+			NEW :  enabled
+			[!] : 200% and 300% don't need it, 250% needs it
+	win32/gdi.c. gdi/*.c
+		multi-thread
+			OLD : maybe unsafe
+			NEW : mutex is implemented
+	win32/win_smallbutton.c
+		sticky icon
+			OLD : misbehave
+			NEW : fixed
+
+	All
+		Win10 : High-DPI
+			OLD : icons are stretched
+			NEW : fixed
+			[x] : ImageList causes
+			[!] : ILC_ORIGINALSIZE(0x00010000) is needed
+		Classic : System Tray Icon : when resized
+			OLD : misbehave
+			NEW : fixed
+			[x] : ??? : few years ago
+		Win9x : 16bpp display mode
+			OLD : GetNearestColor()
+			NEW:  GetDIBits() again : for non-UI only
+			[x] : ??? : some times ago
+			[!] : gdi.c neeeds SetPixel() and GetDIBits()
+			[!] : UI needs GetNearestColor()
+	Nekomimi Nina
+		zoom is 2 or more : horizontal lift
+			OLD : misbehave
+			NEW : patched
+			[!] : lifts will not touch blocks
+	Nekomimi Nina RPG
+		screen shaker
+			OLD : hard-coded 4px
+			NEW : 2 * zoom
+	nmixer
+		when theme is chnaged
+			OLD : do nothing
+			NEW : fixed
+	Nonnon Calendar
+		sticky mode
+			OLD : not hide
+			NEW : fixed
+
+
+NEW_FEATURE
+
+
+	all
+		-1 as special meaning
+			NEW : -2 -3 -11 -12 -13 are also used
+			[!] : for debugging
+
+	neutral/bmp/transform.c
+		n_bmp_scaler_pixelart()
+			NEW : pixelart smooth scaler
+	neutral/jpg.c
+		n_jpg_swaprgb()
+			NEW : faster than older
+
+	project/cardgenerator/cardgenerator.c
+		n_cardgenerator_gray()
+			NEW : faster than older
+
+	win32/win/stdsize.c
+		n_win_stdsize_icon()
+			NEW : one stop setter
+			[!] : use macro _large() and _small()
+
+	Nekomimi Nina
+		zoom has 2 or more
+			NEW : smooth scaling available
+			[!] : but characters only
+	Nekomimi Nina RPG
+		x4 or larger scaling
+			NEW : smooth scaling available
+	OrangerCat
+		INI : "thread"
+			NEW : multi-thread enabler
+			[!] : test phase : off by default
+			[?] : still crash sometimes
+			[!] : turn off when crash
+
+
+----------==========----------==========----------==========----------
+
+
+Change Log
+
+
+2020/04/10
+
+
+BUGFIX
+
+
+	neutral/bmp/transform.c
+		n_bmp_resampler(), _smoothshrink()
+			OLD : bottom and right are not included
+			NEW : fixed
+	neutral/bmp.c
+		n_bmp_carboncopy() : size
+			OLD : not checked
+			NEW :     checked
+	neutral/ini.c
+		n_ini_key_add_int()
+			OLD : multi-thread unsafe
+			NEW : fixed
+	neutral/png.c
+		n_png_uncompress()
+			OLD : multi-thread unsafe
+			NEW : fixed
+
+	project/ini2gdi.c
+		Layer : when there is no loadable layer
+			OLD : crash
+			NEW : fixed
+
+	win32/gdi/font.c
+		multi-thread
+			OLD : unsafe
+			NEW : fixed
+	win32/win/icon.c
+		n_win_icon_name_resolve() : imageres.dll
+			OLD : not accurate
+			NEW : patched
+			[!] : some icons are missing, fallback available
+	win32/win_txtbox.c
+		when read-only : IME on/off : color
+			OLD : misbehave
+			NEW : fixed
+		EDITBOX : click : at a bottom half-visible line
+			OLD : misbehave
+			NEW : fixed
+
+
+NEW_FEATURE
+
+
+	all
+		using n_bmp_ptr_get_fast()
+			NEW : replace for N_BMP_PTR()
+			[!] : maximum 40% faster than older
+		global static variables
+			NEW : reduced as possible
+			[!] : for multi-thread safe
+			[!] : usage of some modules is changed
+	neutral/bmp/color.c
+		n_bmp_composite_pixel_ultrafast()
+			NEW : index based version
+	neutral/bmp/filter.c
+		n_bmp_gamma(), tweaker_hsl(), _contrast(), _sharpen(), _replacer()
+			NEW : multi-thread avaialble
+			[!] : x2 faster at 4 cores
+			[!] : some modules have single-threaded faster code too
+	neutral/bmp.c
+		n_bmp_ptr_pos2index()
+			NEW : pointer element calculator
+		n_bmp_alpha_process()
+			NEW : separated from n_bmp_alpha_tool()
+			[!] : multi-thread availalble
+		n_bmp_safemode_base
+			NEW : bmp.c only used
+			[!] : don't turn off for safety
+	neutral/curico.c
+		n_curico_extract()
+			NEW : faster than older
+	neutral/png.c
+		decoder : supported format
+			NEW : interlace available
+			[!] : implement Adam7 algorithm
+
+	OrangeCat
+		Item View : loading speed #1
+			OLD : slow
+			NEW : faster
+			[!] : stripe bar animation causes
+			[!] : stripe bar animation is disabled
+		Item View : loading speed #2
+			NEW : faster on multi-core CPU
+			[!] : multi-threaded preloader available
+			[x] : currently off because of crash problem
+
+
+----------==========----------==========----------==========----------
+
