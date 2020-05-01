@@ -12,6 +12,24 @@
 Change Log
 
 
+2020/04/30 #1
+
+
+BUGFIX
+
+
+	Nyaurism
+		filters
+			OLD : the last item is unclickable
+			NEW : fixed
+
+
+----------==========----------==========----------==========----------
+
+
+Change Log
+
+
 2020/04/30
 
 
