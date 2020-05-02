@@ -12,6 +12,25 @@
 Change Log
 
 
+2020/04/30 #2
+
+
+BUGFIX
+
+
+	Nonnon Paint
+		Tablet PC Features
+			OLD :  enabled for testing
+			NEW : disabled again
+			[?] : useless
+
+
+----------==========----------==========----------==========----------
+
+
+Change Log
+
+
 2020/04/30 #1
 
 
